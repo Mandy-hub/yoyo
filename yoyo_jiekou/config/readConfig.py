@@ -5,8 +5,10 @@
 import os
 import ConfigParser
 
+# 当前文件夹的路径
 cur_path = os.path.dirname(os.path.realpath(__file__))
 configPath = os.path.join(cur_path, "cfg.ini")
+
 conf = ConfigParser.ConfigParser()
 conf.read(configPath)
 
