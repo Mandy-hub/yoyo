@@ -7,6 +7,7 @@ import ConfigParser
 
 # 当前文件夹的路径
 cur_path = os.path.dirname(os.path.realpath(__file__))
+#获得cfg.ini的绝对路径
 configPath = os.path.join(cur_path, "cfg.ini")
 
 conf = ConfigParser.ConfigParser()
