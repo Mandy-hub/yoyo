@@ -62,19 +62,15 @@ def get_report_file(report_path):
     return report_file
 
 def send_mail(sender, psw, receiver, smtpserver, report_file, port):
-    to_addrs = receiver.split(',')
-    print "to_addrs=", to_addrs
-
     '''第四步：发送最新的测试报告内容'''
     with open(report_file, "rb") as f:
         mail_body = f.read()
     # 定义邮件内容
-    now = time.strftime("%Y_%m_%d_%H_%M_%S")
     msg = MIMEMultipart()
     body = MIMEText(mail_body, _subtype='html', _charset='utf-8')
-    msg['Subject'] = u"自动化测试报告"+now
+    msg['Subject'] = u"自动化测试报告"
     msg["from"] = sender
-    msg["to"] = ",".join(to_addrs)
+    msg["to"] = psw
     msg.attach(body)
     # 添加附件
     att = MIMEText(open(report_file, "rb").read(), "base64", "utf-8")
@@ -88,7 +84,7 @@ def send_mail(sender, psw, receiver, smtpserver, report_file, port):
         smtp.connect(smtpserver, port)
     # 用户名密码
     smtp.login(sender, psw)
-    smtp.sendmail(sender, to_addrs, msg.as_string())
+    smtp.sendmail(sender, receiver, msg.as_string())
     smtp.quit()
     print('test report email has send out !')
 
